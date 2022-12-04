@@ -20,7 +20,8 @@ function InputPage() {
       //console.log(URL);
   }
   return (
-    <div  style={{backgroundColor: '#4d4d4d'}}>
+    // <div  style={{backgroundColor: '#4d4d4d'}}>
+    <div>
       <div className='container pt-4 pb-5'>
         <div className='d-flex flex-row-reverse'>
           <button type="button" className="btn btn-dark">

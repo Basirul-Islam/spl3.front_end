@@ -11,7 +11,7 @@ function Dtable({ columns, data }) {
    ]
     const renderModels = (models, index) => {
         return (
-            <tr className='text-light'>
+            <tr className='text-dark'>
                 <td>{models.Name}</td>
                 <td>{models.Accuracy}</td>
                 <td>{models.Precision}</td>
@@ -22,7 +22,7 @@ function Dtable({ columns, data }) {
     return(
         <div className='pt-4'>
             <ReactBootstrap.Table striped bordered hover>
-                <thead className='text-light'>
+                <thead className='text-dark'>
                     <th>Name</th>
                     <th>Accuracy</th>
                     <th>Precesion</th>

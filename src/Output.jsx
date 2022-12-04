@@ -9,6 +9,7 @@ const OutputPage = (props) => {
   const location = useLocation();
   const [comments, setCommnet] = useState(0);
   const [shouldReload, setShouldReload] = useState(true);
+  const [isLoading, setisLoading] = useState(true);
   let url = location.state.url;
   var validUrl = true;
 //function OutputPage({route}) {
@@ -19,15 +20,18 @@ const OutputPage = (props) => {
     console.log(ID);
     var iFurl = "https://www.youtube.com/embed/" + ID + "?autoplay=0";
     console.log(iFurl);
-
+    console.log("Is loading",isLoading);
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
       if(shouldReload){
-          CommentService.GetSpamComments(url).then(
+          //CommentService.GetSpamComments(url).then(
+          CommentService.GetSpamAndHateComments(url).then(
             (response) => {
                 //console.log(response);
                 setCommnet(response);
                 setShouldReload(false);
+                setisLoading(false)
+                console.log("Is loading after set: ",isLoading);
                 //comments = response;
             },
         );
@@ -73,9 +77,17 @@ const OutputPage = (props) => {
 //     navigate('/', { replace: true });
 //   }
   return (
-    <div  style={{backgroundColor: '#4d4d4d'}}>
-      <div className='container pt-4 pb-5'>
+    //style={{backgroundColor: '#4d4d4d'}}
+    <div>
+      { isLoading &&(
+        <div className='row'>
+          <h3 className='py-5 d-flex justify-content-center'>Loading...</h3>
+        </div>
         
+      )}
+      { !isLoading && (
+        // <h1>Bashir</h1>
+        <div className='container pt-4 pb-5'>
         <div className='align-self-start'>
           <Button type="submit"  className="btn btn-dark previous" onClick={() => navigate('/', { replace: true })}>
             Back
@@ -109,7 +121,7 @@ const OutputPage = (props) => {
                   {
                     comments && comments.map(c => (
                       <div>
-                        { c.isSpam === "1"? (
+                        { c.combine_label === "0"? (
                             <div className='border border-danger rounded mt-2'>
                               <div className="text-justify float-left pt-2">
                                 <div className='row d-inline-block px-3'>
@@ -160,6 +172,8 @@ const OutputPage = (props) => {
           </div>
         </div>
       </div>
+      )}
+      
     </div>
   );
 }
