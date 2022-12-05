@@ -1,4 +1,3 @@
-//import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
@@ -8,16 +7,11 @@ function InputPage() {
   let navigate = useNavigate(); 
   const [URL, setUrl] = useState(0);
   const onChange = (e) => {
-    //console.log(e.target.value);
     setUrl(e.target.value)
-    //console.log(URL);
   }
   const onSubmit = (e) => {
     e.preventDefault();
-    //window.location ='/Output';
     navigate('/Output', {state:{url:URL}});
-    console.log("submited");
-      //console.log(URL);
   }
   return (
     // <div  style={{backgroundColor: '#4d4d4d'}}>
