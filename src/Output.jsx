@@ -8,6 +8,7 @@ import CommentService from './CommentService';
 const OutputPage = (props) => {
   const location = useLocation();
   const [comments, setCommnet] = useState(0);
+  const [reports, setReports] = useState(0);
   const [shouldReload, setShouldReload] = useState(true);
   const [isLoading, setisLoading] = useState(true);
   let url = location.state.url;
@@ -24,6 +25,12 @@ const OutputPage = (props) => {
     // Similar to componentDidMount and componentDidUpdate:
     useEffect(() => {
       if(shouldReload){
+        CommentService.GetReport().then(
+          (res) => {
+            setReports(res)
+            console.log(res);
+          }
+        )
           //CommentService.GetSpamComments(url).then(
           CommentService.GetSpamAndHateComments(url).then(
             (response) => {
@@ -32,6 +39,7 @@ const OutputPage = (props) => {
                 setShouldReload(false);
                 setisLoading(false)
                 console.log("Is loading after set: ",isLoading);
+                console.log("comments", response.data);
                 //comments = response;
             },
         );
@@ -105,7 +113,7 @@ const OutputPage = (props) => {
                 )}
               </div>
             </div>
-            <Dtable/>
+            <Dtable models={reports} />
           </div>
           <div className='col-4'>
             <Row>
@@ -115,7 +123,7 @@ const OutputPage = (props) => {
                       size: 6, 
                       offset: 4
                     }
-                  } style={{ height:'708px',
+                  } style={{ height:'805px',
                   overflowY: 'scroll'}}>
                  
                   {
