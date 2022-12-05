@@ -13,6 +13,34 @@ const GetSpamComments = (url) => {
       });
 };
 
+const GetSpamAndHateComments = (url) => {
+  let path_URL = "https://localhost:7013/api/Comments/GetAll/Labled/Comments";
+  //let token = JSON.parse(localStorage.getItem('user')).token;
+     return  axios.post(path_URL , {url}, { headers: {
+           'Accept' : 'application/json',
+           'Content-Type': 'application/json',
+            }
+       })
+       .then((response) => {
+           console.log(response)
+          return response.data;
+        });
+  };
+
+  const GetReport = () => {
+    let path_URL = "https://localhost:7013/api/Comments/GetReport";
+    //let token = JSON.parse(localStorage.getItem('user')).token;
+       return  axios.get(path_URL, { headers: {
+             'Accept' : 'application/json',
+             'Content-Type': 'application/json',
+              }
+         })
+         .then((response) => {
+             console.log(response)
+            return response.data;
+          });
+    };
+
 const DeleteBlog = (id) => {
     //let id = JSON.parse(localStorage.getItem('blog')).id;
     console.log("id = " + id);
@@ -52,6 +80,8 @@ const DeleteBlog = (id) => {
 
 const CommentService = {
   GetSpamComments,
+  GetSpamAndHateComments,
+  GetReport,
 }
 
 export default CommentService;
